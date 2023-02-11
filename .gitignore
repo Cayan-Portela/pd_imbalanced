@@ -1,3 +1,7 @@
 *.csv
 *__pycache__/
 *.egg-info/
+.*egg
+data/processed/*.csv
+data/raw/*.csv
+pd_imbalanced.egg-info
