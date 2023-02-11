@@ -1,0 +1,58 @@
+raw_data_config:
+  raw_data_csv: data/raw/patrick_sample.csv
+  model_features:
+    numeric:
+      [
+        "idade",
+        "log_saldo_poup_avg",
+        "log_tempo_renda",
+        "log_renda_liquida",
+        "log_tempo_cp"
+      ]
+    binary:
+      [
+        "sexo"
+      ]
+    categorical:
+      [
+        "instrucao"
+      ]
+  target: "default_ate_12m"
+  n_splits: 3
+  random_state: 42
+  processed_data_csv: data/processed/dados_preproc.csv
+
+proc_data_config:
+  model_features:
+    [
+      "sexo",
+      "instrucao",
+      "idade",
+      "log_saldo_poup_avg",
+      "log_tempo_renda",
+      "log_renda_liquida",
+      "log_tempo_cp"
+    ]
+  target: "default_ate_12m"
+  safra_config:
+    col: "safra_contrato"
+    test_size: 1
+    n_splits: 4
+    window_type: "expanding"
+    train_date: "2020-09-01"
+    test_date: "2020-10-01"
+    x_train_csv: data/processed/x_train_safra.csv
+    y_train_csv: data/processed/y_train_safra.csv
+    x_test_csv: data/processed/x_test_safra.csv 
+    y_test_csv: data/processed/y_test_safra.csv
+  shuffle_config:
+    test_size: 0.33
+    n_splits: 3
+    random_state: 42
+    x_train_csv: data/processed/x_train_shuffle.csv
+    y_train_csv: data/processed/y_train_shuffle.csv
+    x_test_csv: data/processed/x_test_shuffle.csv 
+    y_test_csv: data/processed/y_test_shuffle.csv
+
+mflow_config:
+  remote_serve_uri: http://localhost:1234
