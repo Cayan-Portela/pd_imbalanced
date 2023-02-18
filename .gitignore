@@ -1,6 +1,7 @@
 *.csv
 *__pycache__/
 *.egg-info/
+*.egg-info
 .*egg
 data/processed/*.csv
 data/raw/*.csv
