@@ -8,7 +8,7 @@ from src.data.load_data import read_params, read_data
 
 
 
-from clf_class import ClfSwitcher
+from src.models.clf_class import ClfSwitcher
 
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
@@ -26,7 +26,7 @@ from imblearn.pipeline import Pipeline as imb_pipeline
 from imblearn.under_sampling import TomekLinks
 
 # parameters of best models
-from parameters import (
+from src.models.parameters import (
     # safra
     safra_best_parameters_bbagg,
     safra_best_parameters_smote,
@@ -49,21 +49,25 @@ def preproc_cenario(cenario=None):
         "std_not_idade": ("num", StandardScaler(), [3, 4, 5, 6])
     }
 
+    # usa todas (colunas: 0, 1, 2, 3, 4, 5, 6)
     if cenario == 0:
         preproc_i = ColumnTransformer(
             transformers=[step_cen["pass"], step_cen["onehot_instrucao"], step_cen["std_all"]],
             remainder="drop"
             )
+    # Remove sexo (colunas: 1, 2, 3, 4, 5, 6)
     elif cenario == 1:
         preproc_i = ColumnTransformer(
             transformers=[step_cen["onehot_instrucao"], step_cen["std_all"]],
             remainder="drop"
             )
+    # Remove sexo e instrucao (colunas: 2, 3, 4, 5, 6)
     elif cenario == 2:
         preproc_i = ColumnTransformer(
             transformers=[step_cen["std_all"]],
             remainder="drop"
             )
+    # Remove sexo, instrucao e idade (colunas: 3, 4, 5, 6)
     elif cenario == 3:
         preproc_i = ColumnTransformer(
             transformers=[step_cen["std_not_idade"]],

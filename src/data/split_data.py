@@ -78,8 +78,9 @@ if __name__ == "__main__":
         )
 
     # separa safra em x e y
-    X_train_safra, y_train_safra = safra_x_y(data=treino_safra, features=features, target=target)
-    X_teste_safra, y_teste_safra = safra_x_y(data=teste_safra, features=features, target=target)
+    safra_features = [safra_col] + features
+    X_train_safra, y_train_safra = safra_x_y(data=treino_safra, features=safra_features, target=target)
+    X_teste_safra, y_teste_safra = safra_x_y(data=teste_safra, features=safra_features, target=target)
 
     # escreve x_train e y_train
     clean_data_to_csv(data=X_train_safra, data_path=safra_config["x_train_csv"])
